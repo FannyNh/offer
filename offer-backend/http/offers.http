@@ -1,0 +1,16 @@
+### PUT request to create user
+PUT http://localhost:8080/api/offers
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "spa puppy",
+  "description": "prestation bien etre chien",
+  "userId": 199
+}
+
+### GET request to get offers
+GET http://localhost:8080/api/offers
+
+### DELETE request to delete an offer by id
+DELETE  http://localhost:8080/api/offers/1

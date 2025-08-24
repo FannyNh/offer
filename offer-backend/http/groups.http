@@ -1,0 +1,14 @@
+### GET request to get groups
+GET http://localhost:8080/api/groups
+
+### PUT request to create group
+PUT http://localhost:8080/api/groups
+Content-Type: application/json
+Accept: application/json
+
+{
+  "groupName": "Puppy Society"
+}
+
+### DELETE request to delete group
+DELETE http://localhost:8080/api/groups/1

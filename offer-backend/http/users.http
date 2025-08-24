@@ -1,0 +1,31 @@
+### PUT request to create user
+PUT http://localhost:8080/api/users
+Content-Type: application/json
+Accept: application/json
+
+{
+     "firstName": "cjkbks",
+     "lastName": "cjkbks",
+     "email": "cjkbks",
+     "password": "cjkbks"
+
+}
+
+### PUT request to update user
+PUT http://localhost:8080/api/users
+Content-Type: application/json
+Accept: application/json
+
+{
+  "firstName": "fanny",
+  "lastName": "cjkbks",
+  "email": "cjkbks",
+  "password": "cjkbks",
+  "userId": 2,
+  "groupId": 2
+
+}
+
+### DELETE request to delete user
+DELETE http://localhost:8080/api/users/1
+
