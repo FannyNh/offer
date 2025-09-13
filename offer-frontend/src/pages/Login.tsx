@@ -1,20 +1,19 @@
-
-
-import type {LoginPayload} from "@/types/auth";
-import { useAuth } from "@/hooks/useAuth";
-import {loginApi} from "@/api/authApi";
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
+import type { LoginPayload } from "../types/auth";
+import { useFirebaseAuth } from "@/hooks/useFirebaseAuth";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
     const { register, handleSubmit } = useForm<LoginPayload>();
-    const { login } = useAuth();
+    const { login } = useFirebaseAuth();
+    const navigate = useNavigate();
 
     const onSubmit = async (data: LoginPayload) => {
         try {
-            const res = await loginApi(data);
-            login(res.user, res.token);
+            await login(data.email, data.password);
+            navigate("/dashboard");
         } catch (error) {
-            console.error("Erreur login:", error);
+            console.error("Erreur login Firebase:", error);
         }
     };
 
@@ -38,10 +37,16 @@ const Login = () => {
                 />
                 <button
                     type="submit"
-                    className="bg-blue-600 text-white px-4 py-2 w-full rounded"
+                    className="bg-blue-600 text-white px-4 py-2 w-full rounded mb-3"
                 >
                     Se connecter
                 </button>
+                <p className="text-center text-sm">
+                    Pas de compte ?{" "}
+                    <Link to="/register" className="text-blue-600 underline">
+                        Créer un compte
+                    </Link>
+                </p>
             </form>
         </div>
     );
