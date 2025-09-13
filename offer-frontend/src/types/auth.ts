@@ -4,12 +4,6 @@ export interface User {
     firstName?: string;
     lastName?: string;
 }
-
-export interface AuthResponse {
-    token: string;
-    user: User;
-}
-
 export interface LoginPayload {
     email: string;
     password: string;

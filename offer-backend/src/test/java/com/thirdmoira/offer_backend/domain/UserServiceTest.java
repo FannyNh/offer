@@ -20,9 +20,9 @@ class UserServiceTest {
     void shouldCallRepositoryWhenCreateOrUpdate() {
         //given
         //when
-        userService.createOrUpdate("sesres", "boubou", "bou@gmail.com", "1234test", null, null);
+        userService.createOrUpdate("sesres", "boubou", "bou@gmail.com", null, null, null);
         //then
-        verify(userRepository).createOrUpdate("sesres", "boubou", "bou@gmail.com", "1234test", null, null);
+        verify(userRepository).createOrUpdate("sesres", "boubou", "bou@gmail.com", null, null, null);
     }
 
     @Test

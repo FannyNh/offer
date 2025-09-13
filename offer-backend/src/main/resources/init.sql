@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS users (
     first_name VARCHAR(255),
     last_name VARCHAR(255),
     email VARCHAR(255) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
+    idp_id  VARCHAR(255),
     group_id INT,
     company_name VARCHAR,
     company_logo TEXT,

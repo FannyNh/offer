@@ -1,25 +1,31 @@
-import { useForm } from "react-hook-form";
-import { useAuth } from "@/hooks/useAuth";
-import { useNavigate, Link } from "react-router-dom";
+import {useForm} from "react-hook-form";
+import {useAuth} from "@/hooks/useAuth";
+import {Link, useNavigate} from "react-router-dom";
+import {createUserInBackend} from "@/api/userApi";
+import {RegisterPayload} from "@/types/auth";
 
-interface RegisterPayload {
-    email: string;
-    password: string;
-}
 
 const Register = () => {
-    const { register, handleSubmit } = useForm<RegisterPayload>();
-    const { register: firebaseRegister } = useAuth();
+    const {register, handleSubmit} = useForm<RegisterPayload>();
+    const {register: firebaseRegister} = useAuth();
     const navigate = useNavigate();
 
     const onSubmit = async (data: RegisterPayload) => {
         try {
-            await firebaseRegister(data.email, data.password);
+            // 1. Crée l'utilisateur dans Firebase
+            const cred = await firebaseRegister(data.email, data.password);
+
+            // 2. Récupère le token Firebase
+            const token = await cred.user.getIdToken();
+            await createUserInBackend(token, cred.user.uid,data);
+
+            // 4. Redirige vers le dashboard
             navigate("/dashboard");
         } catch (error: any) {
             alert(error.message || "Erreur lors de l'inscription");
         }
     };
+
 
     return (
         <div className="flex items-center justify-center h-screen bg-gray-100">
@@ -29,13 +35,13 @@ const Register = () => {
             >
                 <h2 className="text-2xl font-bold mb-4">Inscription</h2>
                 <input
-                    {...register("email", { required: true })}
+                    {...register("email", {required: true})}
                     type="email"
                     placeholder="Email"
                     className="border p-2 w-full mb-3 rounded"
                 />
                 <input
-                    {...register("password", { required: true, minLength: 6 })}
+                    {...register("password", {required: true, minLength: 6})}
                     type="password"
                     placeholder="Mot de passe (min 6 caractères)"
                     className="border p-2 w-full mb-3 rounded"

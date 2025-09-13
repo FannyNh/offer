@@ -15,15 +15,15 @@ public class UserService {
     public User createOrUpdate(String firstName,
                                String lastName,
                                String email,
-                               String password,
                                Long groupId,
-                               Long userId) {
+                               Long userId,
+                               String idpId) {
         return userRepository.createOrUpdate(firstName,
                 lastName,
                 email,
-                password,
                 groupId,
-                userId);
+                userId,
+                idpId);
     }
 
     public List<User> get() {

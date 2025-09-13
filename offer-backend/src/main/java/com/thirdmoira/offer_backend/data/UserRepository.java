@@ -18,9 +18,9 @@ public class UserRepository {
     private  UserJpaRepository jpaRepository;
     @Autowired
     private EntityDomainUserMapper entityDomainUserMapper;
-    public User createOrUpdate(String firstName, String lastName, String email, String password, Long groupId, Long userId) {
+    public User createOrUpdate(String firstName, String lastName, String email, Long groupId, Long userId, String idpId) {
 
-        UserEntity user = entityDomainUserMapper.toEntity(firstName, lastName, email, password, groupId,userId);
+        UserEntity user = entityDomainUserMapper.toEntity(firstName, lastName, email, groupId,userId,idpId);
         if(user.getUserId() == null) {
             checkEmailExist(user);
         }else{
