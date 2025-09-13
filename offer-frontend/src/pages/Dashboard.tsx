@@ -1,19 +1,22 @@
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-    const { state, logout } = useAuth();
+    const { user, logout } = useAuth();
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        logout();
+    const handleLogout = async () => {
+        await logout();
         navigate("/login");
     };
 
     return (
         <div className="p-6">
             <h1 className="text-3xl mb-4">Dashboard</h1>
-            <p>Bienvenue, {state.user?.firstName || state.user?.email} !</p>
+            <p>
+                Bienvenue,{" "}
+                {user?.displayName || user?.email || "Utilisateur"} !
+            </p>
 
             <button
                 onClick={handleLogout}

@@ -1,6 +1,12 @@
-import { useState, useEffect } from "react";
-import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, User } from "firebase/auth";
-import { auth } from "@/firebase/config";
+import {useEffect, useState} from "react";
+import {
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signOut,
+    User,
+} from "firebase/auth";
+import {auth} from "@/firebase/config";
 
 export const useFirebaseAuth = () => {
     const [user, setUser] = useState<User | null>(null);
@@ -20,7 +26,7 @@ export const useFirebaseAuth = () => {
     const register = (email: string, password: string) =>
         createUserWithEmailAndPassword(auth, email, password);
 
-    const logout = () => auth.signOut();
+    const logout = () => signOut(auth);
 
-    return { user, loading, login, register, logout };
+    return {user, loading, login, register, logout};
 };

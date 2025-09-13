@@ -9,7 +9,7 @@ export const router = createBrowserRouter([
     {
         path: "/",
         element: <Login />,
-        errorElement: <ErrorPage />, // 🔹 gestion d'erreur ici
+        errorElement: <ErrorPage />,
     },
     {
         path: "/login",
@@ -32,6 +32,6 @@ export const router = createBrowserRouter([
     },
     {
         path: "*",
-        element: <ErrorPage />, // 🔹 toutes les routes inconnues tombent ici
+        element: <ErrorPage />,
     },
 ]);
