@@ -1,5 +1,6 @@
 package com.thirdmoira.offer_backend.domain;
 
+import com.thirdmoira.offer_backend.api.rest.ApiUser;
 import com.thirdmoira.offer_backend.data.UserRepository;
 import com.thirdmoira.offer_backend.domain.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,9 @@ public class UserService {
 
     public void delete(long id) {
         userRepository.delete(id);
+    }
+
+    public User getUserByUid(String uid) {
+        return userRepository.getUserByUid(uid);
     }
 }

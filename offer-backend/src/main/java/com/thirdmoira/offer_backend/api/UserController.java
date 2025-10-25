@@ -9,6 +9,8 @@ import com.thirdmoira.offer_backend.domain.UserService;
 import com.thirdmoira.offer_backend.domain.models.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,6 +42,9 @@ public class UserController {
         return apiDomainUserMapper.toApi(newUser);
     }
 
+    // GET me get base information user
+
+
     @GetMapping(produces = "application/json")
     public List<ApiUser> getUsers() {
         log.info("get test");
@@ -55,6 +60,16 @@ public class UserController {
         log.info("delete test");
         userService.delete(id);
 
+    }
+
+    @GetMapping("/me")
+    public ApiUser getMe() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return null;
+        }
+        String principal = (String) authentication.getPrincipal();
+        return apiDomainUserMapper.toApi(userService.getUserByUid(principal));
     }
 
 

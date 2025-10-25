@@ -4,6 +4,7 @@ import Register from "@/pages/Register";
 import Dashboard from "@/pages/Dashboard";
 import ErrorPage from "@/pages/ErrorPage";
 import PrivateRoute from "@/components/PrivateRoute";
+import CreateOffer from "@/pages/CreateOffer";
 
 export const router = createBrowserRouter([
     {
@@ -26,6 +27,15 @@ export const router = createBrowserRouter([
         element: (
             <PrivateRoute>
                 <Dashboard />
+            </PrivateRoute>
+        ),
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/create-offer",
+        element: (
+            <PrivateRoute>
+                <CreateOffer />
             </PrivateRoute>
         ),
         errorElement: <ErrorPage />,

@@ -23,14 +23,14 @@ public class FirebaseAuthFilter extends OncePerRequestFilter {
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
-        String header = request.getHeader("Authorization");
+        String headerAuth = request.getHeader("Authorization");
 
-        if (header == null || !header.startsWith("Bearer ")) {
+        if (headerAuth == null || !headerAuth.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        String token = header.substring(7);
+        String token = headerAuth.substring(7);
         try {
             FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
             UsernamePasswordAuthenticationToken auth =
