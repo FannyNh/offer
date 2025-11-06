@@ -16,8 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class OfferRepositoryTest {
@@ -36,9 +35,9 @@ class OfferRepositoryTest {
     void should_create_offer_entity_and_create_jpa_offer_version_entity_when_create_offer() {
         //given=mock
         OfferEntity offerEntity = new OfferEntity();
-        when(entityDomainOfferMapper.toEntity(any(), any()))
+        when(entityDomainOfferMapper.toEntity(any(), any(), eq(null)))
                 .thenReturn(offerEntity);
-        OfferEntity offerEntitySaved = new OfferEntity(1L,null);
+        OfferEntity offerEntitySaved = mock(OfferEntity.class);
         when(offerJpaRepository.save(offerEntity))
                 .thenReturn(offerEntitySaved);
         when(entityDomainOfferMapper.toDomain(any(OfferEntity.class)))
@@ -53,7 +52,7 @@ class OfferRepositoryTest {
 
 
         //when
-        Offer offer = offerRepository.create("jkdjksjksd", null, "boubou", 3L,"newtitleVersion");
+        Offer offer = offerRepository.create("jkdjksjksd", null, "boubou", 3L,"newtitleVersion",null);
         //then
         verify(offerJpaRepository).save(offerEntity);
         verify(offerVersionJpaRepository).save(offerVersionEntity);

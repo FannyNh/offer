@@ -9,4 +9,5 @@ public class ApiCreateOrUpdateOfferRequest {
     Long userId;
     Long id;
     String title;
+    String status;
 }

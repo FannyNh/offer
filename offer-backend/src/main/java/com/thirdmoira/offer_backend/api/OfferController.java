@@ -30,7 +30,8 @@ public class OfferController {
                 request.getId(),
                 request.getDescription(),
                 request.getUserId(),
-                request.getTitle()
+                request.getTitle(),
+                request.getStatus()
         );
 
         return apiDomainOfferMapper.toApi(newOffer);

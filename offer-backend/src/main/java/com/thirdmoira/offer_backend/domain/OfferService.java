@@ -17,11 +17,11 @@ public class OfferService {
     private OfferRepository offerRepository;
 
     @Transactional
-    public Offer createOrUpdate(String name, Long id, String description, Long userId, String title) {
+    public Offer createOrUpdate(String name, Long id, String description, Long userId, String title, String status) {
                 if(id != null) {
-                    return offerRepository.update( name,  id,  description,  userId);
+                    return offerRepository.update( name,  id,  description,  userId, status);
                 }
-                return offerRepository.create( name,  id,  description,  userId, title);
+                return offerRepository.create( name,  id,  description,  userId, title, "CREATED");
     }
 
     public List<Offer> get() {

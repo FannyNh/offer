@@ -25,9 +25,9 @@ public class OfferRepository {
     @Autowired
     private OfferVersionJpaRepository jpaVersionRepository;
 
-    public Offer createOrUpdate(String name, Long id, String description, Long userId) {
+    public Offer createOrUpdate(String name, Long id, String description, Long userId,String status) {
 
-        OfferEntity offer = entityDomainOfferMapper.toEntity( id, userId);
+        OfferEntity offer = entityDomainOfferMapper.toEntity( id, userId,status );
 
         OfferEntity save = jpaRepository.save(offer);
         return entityDomainOfferMapper.toDomain(save);
@@ -42,15 +42,15 @@ public class OfferRepository {
         jpaRepository.deleteById(id);
     }
 
-    public Offer update(String name, Long id, String description, Long userId) {
-        OfferEntity newOffer = entityDomainOfferMapper.toEntity( id, userId);
+    public Offer update(String name, Long id, String description, Long userId,String status) {
+        OfferEntity newOffer = entityDomainOfferMapper.toEntity( id, userId,status);
         OfferEntity save = jpaRepository.save(newOffer);
         OfferVersion newVersion = createVersion(save.getId(), name);
         return entityDomainOfferMapper.toDomain(save);
     }
 
-    public Offer create(String name, Long id, String description, Long userId, String title) {
-        OfferEntity newOffer = entityDomainOfferMapper.toEntity( id, userId);
+    public Offer create(String name, Long id, String description, Long userId, String title,String status) {
+        OfferEntity newOffer = entityDomainOfferMapper.toEntity( id, userId,status);
         OfferEntity save = jpaRepository.save(newOffer);
         if (save.getId() != null) {
             initOfferVersion(save.getId(), title);

@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface EntityDomainOfferMapper {
     @Mapping(target = "user", expression = "java(mapUser(userId))")
-    OfferEntity toEntity( Long id, Long userId);
+    OfferEntity toEntity(Long id, Long userId, String status);
 
     @Mapping(source = "save.user.userId", target = "userId")
     Offer toDomain(OfferEntity save);
