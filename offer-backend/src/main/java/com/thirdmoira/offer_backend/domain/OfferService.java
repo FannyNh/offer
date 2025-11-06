@@ -2,9 +2,11 @@ package com.thirdmoira.offer_backend.domain;
 
 import com.thirdmoira.offer_backend.data.OfferRepository;
 import com.thirdmoira.offer_backend.domain.models.Offer;
+import com.thirdmoira.offer_backend.domain.models.OfferVersion;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +15,8 @@ import java.util.List;
 public class OfferService {
     @Autowired
     private OfferRepository offerRepository;
+
+    @Transactional
     public Offer createOrUpdate(String name, Long id, String description, Long userId, String title) {
                 if(id != null) {
                     return offerRepository.update( name,  id,  description,  userId);
@@ -21,12 +25,14 @@ public class OfferService {
     }
 
     public List<Offer> get() {
-        return  offerRepository.get();
+        return  offerRepository.getAll();
     }
-
-
 
     public void delete(Long id) {
         offerRepository.delete(id);
+    }
+
+    public OfferVersion createVersion(  Long offerId, String title , Long versionNumber) {
+        return offerRepository.createVersion(offerId,title);
     }
 }

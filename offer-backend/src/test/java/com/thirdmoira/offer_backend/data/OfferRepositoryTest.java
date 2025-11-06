@@ -36,7 +36,7 @@ class OfferRepositoryTest {
     void should_create_offer_entity_and_create_jpa_offer_version_entity_when_create_offer() {
         //given=mock
         OfferEntity offerEntity = new OfferEntity();
-        when(entityDomainOfferMapper.toEntity(any(), any(), any(), any()))
+        when(entityDomainOfferMapper.toEntity(any(), any()))
                 .thenReturn(offerEntity);
         OfferEntity offerEntitySaved = new OfferEntity(1L,null);
         when(offerJpaRepository.save(offerEntity))
@@ -45,9 +45,10 @@ class OfferRepositoryTest {
                 .thenReturn(new Offer());
 
 
-        when(entityDomainOfferVersionMapper.toEntity(any(), any(), any(), any())).thenReturn(new OfferVersionEntity());
+        OfferVersionEntity offerVersionEntity = new OfferVersionEntity();
+        when(entityDomainOfferVersionMapper.toEntity(any(), any(), any(), any())).thenReturn(offerVersionEntity);
         when(offerVersionJpaRepository.save(any(OfferVersionEntity.class)))
-                .thenReturn(new OfferVersionEntity());
+                .thenReturn(offerVersionEntity);
 
 
 
@@ -55,6 +56,7 @@ class OfferRepositoryTest {
         Offer offer = offerRepository.create("jkdjksjksd", null, "boubou", 3L,"newtitleVersion");
         //then
         verify(offerJpaRepository).save(offerEntity);
+        verify(offerVersionJpaRepository).save(offerVersionEntity);
         assertEquals(Offer.class, offer.getClass());
 
     }
