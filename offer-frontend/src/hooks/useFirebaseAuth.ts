@@ -22,7 +22,7 @@ export const useFirebaseAuth = () => {
 
     const login = (email: string, password: string) =>
         signInWithEmailAndPassword(auth, email, password);
-
+        //TODO: call /me backend -> stock in localstorage create authservice + userhook
     const register = (email: string, password: string) =>
         createUserWithEmailAndPassword(auth, email, password);
 

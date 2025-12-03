@@ -30,6 +30,7 @@ const CreateOffer = () => {
         setLoading(true);
         try {
             await createOffer(offer); // Appelle ton API pour créer l'offre
+            //FIXME: renvoyer user.id et pas user.uid
             navigate("/dashboard");   // Retour au dashboard après création
         } catch (err: any) {
             alert(err.message || "Erreur lors de la création de l'offre");
@@ -44,13 +45,21 @@ const CreateOffer = () => {
             <h1 className="text-3xl mb-4">CreateOffer</h1>
             {JSON.stringify(user)}
             <div className="mt-6">
-                <form onSubmit={handleSubmit} className="bg-white p-6 rounded-2xl shadow space-y-4">
+                <form onSubmit={handleSubmit} className="bg-white dark:bg-purple-800 p-6 rounded-2xl shadow space-y-4">
                     <input
                         name="name"
                         value={offer.name}
                         onChange={handleChange}
                         placeholder="Nom de l'offre"
-                        className="border p-2 w-full rounded"
+                        className="border p-2 w-full rounded
+    text-purple-900 dark:text-white
+    bg-white dark:bg-purple-900
+    focus:border-purple-600
+    focus:ring-2 focus:ring-purple-400
+    focus:outline-none
+    dark:focus:text-white
+    dark:focus:border-orange-600
+    dark:focus:ring-orange-600"
                         required
                     />
                     <input
@@ -58,7 +67,14 @@ const CreateOffer = () => {
                         value={offer.title}
                         onChange={handleChange}
                         placeholder="Titre de l'offre"
-                        className="border p-2 w-full rounded"
+                        className="border p-2 w-full rounded text-purple-900 dark:text-white
+    bg-white dark:bg-purple-900
+    focus:border-purple-600
+    focus:ring-2 focus:ring-purple-400
+    focus:outline-none
+    dark:focus:text-white
+    dark:focus:border-orange-600
+    dark:focus:ring-orange-600"
                         required
                     />
                     <textarea
@@ -66,13 +82,20 @@ const CreateOffer = () => {
                         value={offer.description}
                         onChange={handleChange}
                         placeholder="Description de l'offre"
-                        className="border p-2 w-full rounded"
+                        className="border p-2 w-full rounded text-purple-900 dark:text-white
+    bg-white dark:bg-purple-900
+    focus:border-purple-600
+    focus:ring-2 focus:ring-purple-400
+    focus:outline-none
+    dark:focus:text-white
+    dark:focus:border-orange-600
+    dark:focus:ring-orange-600"
                         required
                     />
                     <button
                         type="submit"
                         disabled={loading}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 w-full rounded"
+                        className="bg-purple-800 dark:bg-orange-500 hover:bg-purple-700 dark:hover:bg-orange-600 text-white px-4 py-2 w-full rounded"
                     >
                         {loading ? "Création..." : "Créer l'offre"}
                     </button>

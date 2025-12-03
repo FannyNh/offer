@@ -69,8 +69,9 @@ const Dashboard = () => {
                         <ul className="space-y-3">
 
                             {offers.map((offer) => (
-                                <li key={offer.id} className="p-4 border rounded shadow-sm bg-white">
+                                <li key={offer.id} className="p-4 border rounded shadow-sm bg-white text-purple-900">
                                     <h3 className="text-lg font-bold">{offer.title}</h3>
+                                    {JSON.stringify(offer)}
                                     <p className="text-gray-600">{offer.description}</p>
                                     <p className="text-sm text-gray-500">Auteur: {offer.userId}</p>
                                 </li>
