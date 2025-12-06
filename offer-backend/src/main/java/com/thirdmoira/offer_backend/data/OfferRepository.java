@@ -55,20 +55,20 @@ public class OfferRepository {
         OfferEntity newOffer = entityDomainOfferMapper.toEntity( id, userId,status);
         OfferEntity save = jpaRepository.save(newOffer);
         if (save.getId() != null) {
-            initOfferVersion(save.getId(), title);
+            initOfferVersion(save.getId(), title,description);
         }
         return entityDomainOfferMapper.toDomain(save);
     }
 
-    private void initOfferVersion(Long offerId, String title) {
-        OfferVersionEntity offerVersionNew = entityDomainOfferVersionMapper.toEntity(null, offerId, title, 1L);
+    private void initOfferVersion(Long offerId, String title, String description) {
+        OfferVersionEntity offerVersionNew = entityDomainOfferVersionMapper.toEntity(null, offerId, title, 1L,description);
         jpaVersionRepository.save(offerVersionNew);
     }
 
     public OfferVersion createVersion(Long offerId, String title) {
         OfferVersionEntity lastVersion = getLastVersion(offerId);
         Long newLastVersionNumber = lastVersion.getVersionNumber() + 1;
-        OfferVersionEntity offerVersionNew = entityDomainOfferVersionMapper.toEntity(null, offerId, title, newLastVersionNumber);
+        OfferVersionEntity offerVersionNew = entityDomainOfferVersionMapper.toEntity(null, offerId, title, newLastVersionNumber,null);
         OfferVersionEntity save = jpaVersionRepository.save(offerVersionNew);
         return entityDomainOfferVersionMapper.toDomain(save);
     }

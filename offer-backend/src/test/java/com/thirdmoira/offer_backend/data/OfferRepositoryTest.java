@@ -45,7 +45,7 @@ class OfferRepositoryTest {
 
 
         OfferVersionEntity offerVersionEntity = new OfferVersionEntity();
-        when(entityDomainOfferVersionMapper.toEntity(any(), any(), any(), any())).thenReturn(offerVersionEntity);
+        when(entityDomainOfferVersionMapper.toEntity(any(), any(), any(), any(),any())).thenReturn(offerVersionEntity);
         when(offerVersionJpaRepository.save(any(OfferVersionEntity.class)))
                 .thenReturn(offerVersionEntity);
 
