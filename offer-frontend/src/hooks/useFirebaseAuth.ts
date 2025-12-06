@@ -18,38 +18,33 @@ export const useFirebaseAuth = () => {
     useEffect(() => {
         return onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-            setLoading(false);
         });
     }, []);
     useEffect(() => {
         (async () => {
-            if (!user) {
-                setBackendUser(null);
-                setLoading(false);
-                return;
-            }
-
-            try {
-                const idToken = await user.getIdToken();
-                const me = await getMe(idToken);
-                setBackendUser(me);
-            } catch (err: any) {
-                const idToken = await user.getIdToken();
-                if (err instanceof Error && (err as any).status === 404) {
-                    await createUserInBackend(idToken, user.uid, {
-                        firstName: user.displayName || "",
-                        lastName: user.displayName || "",
-                        email: user.email || "",
-                        password: ""
-                    });
+            if(user){
+                try {
+                    const idToken = await user.getIdToken();
                     const me = await getMe(idToken);
                     setBackendUser(me);
-                } else {
-                    console.error("Failed to fetch /me", err);
-                    setBackendUser(null);
+                } catch (err: any) {
+                    const idToken = await user.getIdToken();
+                    if (err instanceof Error && (err as any).status === 404) {
+                        await createUserInBackend(idToken, user.uid, {
+                            firstName: user.displayName || "",
+                            lastName: user.displayName || "",
+                            email: user.email || "",
+                            password: ""
+                        });
+                        const me = await getMe(idToken);
+                        setBackendUser(me);
+                    } else {
+                        console.error("Failed to fetch /me", err);
+                        setBackendUser(null);
+                    }
+                } finally {
+                    setLoading(false);
                 }
-            } finally {
-                setLoading(false);
             }
         })();
     }, [user]);
