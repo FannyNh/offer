@@ -1,7 +1,7 @@
 package com.thirdmoira.offer_backend.api;
 
 import com.thirdmoira.offer_backend.api.rest.ApiCreateOrUpdateOfferRequest;
-import com.thirdmoira.offer_backend.api.rest.ApiOffer;
+import com.thirdmoira.offer_backend.api.rest.ApiOfferLight;
 import com.thirdmoira.offer_backend.data.mappers.ApiDomainOfferMapper;
 import com.thirdmoira.offer_backend.domain.OfferService;
 import com.thirdmoira.offer_backend.domain.models.Offer;
@@ -37,7 +37,7 @@ class OfferControllerTest {
         ApiCreateOrUpdateOfferRequest request = new ApiCreateOrUpdateOfferRequest();
 
         //when
-        ApiOffer orUpdateOffer = offerController.createOrUpdateOffer(request);
+        ApiOfferLight orUpdateOffer = offerController.createOrUpdateOffer(request);
 
         //then
         assertNotNull(orUpdateOffer);
@@ -51,9 +51,9 @@ class OfferControllerTest {
         Offer offer2 = mock(Offer.class);
         List<Offer> offers = List.of(offer1, offer2);
 
-        ApiOffer apiOffer1 = new ApiOffer();
-        ApiOffer apiOffer2 = new ApiOffer();
-        List<ApiOffer> apiOffers = List.of(apiOffer1, apiOffer2);
+        ApiOfferLight apiOffer1 = new ApiOfferLight();
+        ApiOfferLight apiOffer2 = new ApiOfferLight();
+        List<ApiOfferLight> apiOffers = List.of(apiOffer1, apiOffer2);
 
         // mock du service et du mapper
         when(offerService.get()).thenReturn(offers);
@@ -61,7 +61,7 @@ class OfferControllerTest {
         when(apiDomainOfferMapper.toApi(offer2)).thenReturn(apiOffer2);
 
         // when
-        List<ApiOffer> result = offerController.getOffers();
+        List<ApiOfferLight> result = offerController.getOffers();
 
         // then
         assertNotNull(result);

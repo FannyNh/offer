@@ -1,7 +1,7 @@
 package com.thirdmoira.offer_backend.api;
 
 import com.thirdmoira.offer_backend.api.rest.ApiCreateOrUpdateOfferRequest;
-import com.thirdmoira.offer_backend.api.rest.ApiOffer;
+import com.thirdmoira.offer_backend.api.rest.ApiOfferLight;
 import com.thirdmoira.offer_backend.data.mappers.ApiDomainOfferMapper;
 import com.thirdmoira.offer_backend.domain.OfferService;
 import com.thirdmoira.offer_backend.domain.models.Offer;
@@ -22,7 +22,7 @@ public class OfferController {
     private OfferService offerService;
 
     @PutMapping(consumes = "application/json", produces = "application/json")
-    public ApiOffer createOrUpdateOffer(@RequestBody ApiCreateOrUpdateOfferRequest request) {
+    public ApiOfferLight createOrUpdateOffer(@RequestBody ApiCreateOrUpdateOfferRequest request) {
         log.info("Received request to create or update offer");
 
         Offer newOffer = offerService.createOrUpdate(
@@ -38,11 +38,8 @@ public class OfferController {
     }
 
     @GetMapping(produces = "application/json")
-    public List<ApiOffer> getOffers() {
-        log.info("get list offers");
-       // List<Offer> offers = offerService.get();
+    public List<ApiOfferLight> getOffers() {
         List<Offer> offerWithLastVersion = offerService.get();
-
         return offerWithLastVersion.stream().map(apiDomainOfferMapper::toApi).toList();
     }
 

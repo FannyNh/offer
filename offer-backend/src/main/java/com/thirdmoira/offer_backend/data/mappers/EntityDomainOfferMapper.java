@@ -17,8 +17,6 @@ public interface EntityDomainOfferMapper {
 
     @Mapping(source = "offerEntity.id", target = "id")
     @Mapping(source = "offerEntity.user.userId", target = "userId")
-    @Mapping(source = "version.title", target = "name")
-    @Mapping(source = "version.offerDescription", target = "description")
     Offer toDomainWithVersion(OfferEntity offerEntity, OfferVersionEntity version );
 
     @SuppressWarnings("unused")

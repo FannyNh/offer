@@ -3,9 +3,9 @@ package com.thirdmoira.offer_backend.api.rest;
 import lombok.Data;
 
 @Data
-public class ApiOffer {
-    String name;
-    String description;
+public class ApiOfferLight {
     Long userId;
     Long id;
+    ApiOfferVersionLight version;
 }
+
