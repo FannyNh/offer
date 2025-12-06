@@ -40,8 +40,10 @@ public class OfferController {
     @GetMapping(produces = "application/json")
     public List<ApiOffer> getOffers() {
         log.info("get list offers");
-        List<Offer> offers = offerService.get();
-        return offers.stream().map(apiDomainOfferMapper::toApi).toList();
+       // List<Offer> offers = offerService.get();
+        List<Offer> offerWithLastVersion = offerService.get();
+
+        return offerWithLastVersion.stream().map(apiDomainOfferMapper::toApi).toList();
     }
 
     @DeleteMapping("/{id}")

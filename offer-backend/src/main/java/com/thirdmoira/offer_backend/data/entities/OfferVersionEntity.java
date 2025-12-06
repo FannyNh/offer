@@ -20,4 +20,6 @@ public class OfferVersionEntity {
     private String title;
     @Column(name = "version_number")
     private Long versionNumber;
+    @Column(name = "offer_description")
+    private String offerDescription;
 }

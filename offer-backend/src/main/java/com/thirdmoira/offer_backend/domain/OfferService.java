@@ -1,6 +1,7 @@
 package com.thirdmoira.offer_backend.domain;
 
 import com.thirdmoira.offer_backend.data.OfferRepository;
+import com.thirdmoira.offer_backend.data.entities.OfferVersionEntity;
 import com.thirdmoira.offer_backend.domain.models.Offer;
 import com.thirdmoira.offer_backend.domain.models.OfferVersion;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +25,10 @@ public class OfferService {
                 return offerRepository.create( name,  id,  description,  userId, title, "CREATED");
     }
 
+
+
     public List<Offer> get() {
-        return  offerRepository.getAll();
+        return offerRepository.getAll();
     }
 
     public void delete(Long id) {

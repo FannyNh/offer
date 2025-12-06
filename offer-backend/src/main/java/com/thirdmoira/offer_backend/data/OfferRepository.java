@@ -34,8 +34,10 @@ public class OfferRepository {
     }
 
     public List<Offer> getAll() {
-        List<OfferEntity> offers = jpaRepository.findAll();
-        return offers.stream().map(entityDomainOfferMapper::toDomain).toList();
+        return jpaRepository.findAll().stream().map(( offer)-> {
+            OfferVersionEntity lastVersion = getLastVersion(offer.getId());
+            return entityDomainOfferMapper.toDomainWithVersion(offer, lastVersion);
+        }).toList();
     }
 
     public void delete(Long id) {
@@ -72,7 +74,7 @@ public class OfferRepository {
     }
 
 
-    private OfferVersionEntity getLastVersion(Long offerId) {
+    public OfferVersionEntity getLastVersion(Long offerId) {
         return jpaVersionRepository.findTopByOfferIdOrderByVersionNumberDesc(offerId);
     }
 

@@ -1,3 +1,15 @@
+-- DROP TABLE IF EXISTS offer_items CASCADE;
+-- DROP TABLE IF EXISTS offer_sections CASCADE;
+-- DROP TABLE IF EXISTS offer_versions CASCADE;
+-- DROP TABLE IF EXISTS offers CASCADE;
+-- DROP TABLE IF EXISTS services CASCADE;
+-- DROP TABLE IF EXISTS taxes CASCADE;
+-- DROP TABLE IF EXISTS service_categories CASCADE;
+-- DROP TABLE IF EXISTS units CASCADE;
+-- DROP TABLE IF EXISTS clients CASCADE;
+-- DROP TABLE IF EXISTS users CASCADE;
+-- DROP TABLE IF EXISTS groups CASCADE;
+
 -- =====================================================================
 --  Idempotent schema for PostgreSQL ≥ 15
 --  Safe to re-run; works well as Spring Boot schema.sql
@@ -97,7 +109,7 @@ CREATE TABLE IF NOT EXISTS offer_versions (
     version_number INT NOT NULL,
     title VARCHAR,
     offer_description VARCHAR(1000),
-    currency VARCHAR(3) NOT NULL,
+    currency VARCHAR(3) NOT NULL DEFAULT('CHF'),
     valid_until DATE,
     notes TEXT,
     discount_pct NUMERIC(5,2),
