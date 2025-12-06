@@ -1,10 +1,6 @@
 import { getAuth } from "firebase/auth";
-interface NewOffer {
-    name: string;
-    title: string;
-    description: string;
-    userId: string;
-}
+import {NewOffer} from "@/types/offer";
+
 export const getOffers = async () => {
     const auth = getAuth();
     const token = await auth.currentUser?.getIdToken();

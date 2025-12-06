@@ -12,7 +12,7 @@ interface Offer {
 }
 
 const Dashboard = () => {
-    const { user, logout } = useAuth();
+    const { user, logout,backendUser } = useAuth();
     const navigate = useNavigate();
     const [offers, setOffers] = useState<Offer[]>([]);
     const [loading, setLoading] = useState(true);

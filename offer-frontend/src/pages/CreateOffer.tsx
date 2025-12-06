@@ -2,22 +2,18 @@ import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { createOffer } from "@/api/offerApi";
+import {NewOffer} from "@/types/offer";
 
-interface NewOffer {
-    name: string;
-    title: string;
-    description: string;
-    userId: string;
-}
+
 
 const CreateOffer = () => {
-    const { user, logout } = useAuth();
+    const { user, logout,backendUser } = useAuth();
     const navigate = useNavigate();
     const [offer, setOffer] = useState<NewOffer>({
         name: "",
         title: "",
         description: "",
-        userId: user?.uid || ""
+        userId: backendUser?.userId
     });
     const [loading, setLoading] = useState(false);
 
@@ -30,7 +26,6 @@ const CreateOffer = () => {
         setLoading(true);
         try {
             await createOffer(offer); // Appelle ton API pour créer l'offre
-            //FIXME: renvoyer user.id et pas user.uid
             navigate("/dashboard");   // Retour au dashboard après création
         } catch (err: any) {
             alert(err.message || "Erreur lors de la création de l'offre");

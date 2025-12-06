@@ -13,3 +13,11 @@ export interface RegisterPayload extends LoginPayload {
     firstName: string;
     lastName: string;
 }
+export interface ApiUser {
+    userId: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    groupId: number;
+}
+
