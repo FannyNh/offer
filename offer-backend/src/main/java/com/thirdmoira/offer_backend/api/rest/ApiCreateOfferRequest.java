@@ -3,7 +3,7 @@ package com.thirdmoira.offer_backend.api.rest;
 import lombok.Data;
 
 @Data
-public class ApiCreateOrUpdateOfferRequest {
+public class ApiCreateOfferRequest {
     String name;
     String description;
     Long userId;

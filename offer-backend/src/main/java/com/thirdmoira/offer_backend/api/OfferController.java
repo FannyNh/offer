@@ -1,6 +1,6 @@
 package com.thirdmoira.offer_backend.api;
 
-import com.thirdmoira.offer_backend.api.rest.ApiCreateOrUpdateOfferRequest;
+import com.thirdmoira.offer_backend.api.rest.ApiCreateOfferRequest;
 import com.thirdmoira.offer_backend.api.rest.ApiOfferLight;
 import com.thirdmoira.offer_backend.data.mappers.ApiDomainOfferMapper;
 import com.thirdmoira.offer_backend.domain.OfferService;
@@ -21,11 +21,26 @@ public class OfferController {
     @Autowired
     private OfferService offerService;
 
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public ApiOfferLight createOffer(@RequestBody ApiCreateOfferRequest request) {
+        log.info("Received request to create or update offer");
+        Offer newOffer = offerService.create(
+                request.getName(),
+                request.getId(),
+                request.getDescription(),
+                request.getUserId(),
+                request.getTitle(),
+                request.getStatus()
+        );
+
+        return apiDomainOfferMapper.toApi(newOffer);
+    }
+
     @PutMapping(consumes = "application/json", produces = "application/json")
-    public ApiOfferLight createOrUpdateOffer(@RequestBody ApiCreateOrUpdateOfferRequest request) {
+    public ApiOfferLight updateOffer(@RequestBody ApiCreateOfferRequest request) {
         log.info("Received request to create or update offer");
 
-        Offer newOffer = offerService.createOrUpdate(
+        Offer newOffer = offerService.update(
                 request.getName(),
                 request.getId(),
                 request.getDescription(),

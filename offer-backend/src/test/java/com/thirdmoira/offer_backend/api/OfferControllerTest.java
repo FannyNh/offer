@@ -1,18 +1,15 @@
 package com.thirdmoira.offer_backend.api;
 
-import com.thirdmoira.offer_backend.api.rest.ApiCreateOrUpdateOfferRequest;
+import com.thirdmoira.offer_backend.api.rest.ApiCreateOfferRequest;
 import com.thirdmoira.offer_backend.api.rest.ApiOfferLight;
 import com.thirdmoira.offer_backend.data.mappers.ApiDomainOfferMapper;
 import com.thirdmoira.offer_backend.domain.OfferService;
 import com.thirdmoira.offer_backend.domain.models.Offer;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -30,44 +27,76 @@ class OfferControllerTest {
     private ApiDomainOfferMapper apiDomainOfferMapper;
 
 
-    @Disabled
     @Test
-    public void should_return_api_offer_and_create_in_domain_when_create_or_update_offer_is_called_in_controller() {
-        //given
-        ApiCreateOrUpdateOfferRequest request = new ApiCreateOrUpdateOfferRequest();
-
-        //when
-        ApiOfferLight orUpdateOffer = offerController.createOrUpdateOffer(request);
-
-        //then
-        assertNotNull(orUpdateOffer);
-//        verify(service).createOrUpdateOffer();
-    }
-
-    @Test
-    void should_return_list_offer_when_get_offers_is_called() {
+    void should_return_api_offer_when_create_offer_is_called() {
         // given
-        Offer offer1 = mock(Offer.class);
-        Offer offer2 = mock(Offer.class);
-        List<Offer> offers = List.of(offer1, offer2);
+        ApiCreateOfferRequest request = mock(ApiCreateOfferRequest.class);
 
-        ApiOfferLight apiOffer1 = new ApiOfferLight();
-        ApiOfferLight apiOffer2 = new ApiOfferLight();
-        List<ApiOfferLight> apiOffers = List.of(apiOffer1, apiOffer2);
+        Offer domainOffer = mock(Offer.class);
+        ApiOfferLight apiOffer = new ApiOfferLight();
 
-        // mock du service et du mapper
-        when(offerService.get()).thenReturn(offers);
-        when(apiDomainOfferMapper.toApi(offer1)).thenReturn(apiOffer1);
-        when(apiDomainOfferMapper.toApi(offer2)).thenReturn(apiOffer2);
+        when(offerService.create(
+                request.getName(),
+                request.getId(),
+                request.getDescription(),
+                request.getUserId(),
+                request.getTitle(),
+                request.getStatus()
+        )).thenReturn(domainOffer);
+
+        when(apiDomainOfferMapper.toApi(domainOffer)).thenReturn(apiOffer);
 
         // when
-        List<ApiOfferLight> result = offerController.getOffers();
+        ApiOfferLight result = offerController.createOffer(request);
 
         // then
         assertNotNull(result);
-        assertEquals(apiOffers.size(), result.size());
-        verify(offerService).get();
+        assertEquals(apiOffer, result);
+        verify(offerService).create(
+                request.getName(),
+                request.getId(),
+                request.getDescription(),
+                request.getUserId(),
+                request.getTitle(),
+                request.getStatus()
+        );
+        verify(apiDomainOfferMapper).toApi(domainOffer);
     }
 
 
+    @Test
+    void should_return_api_offer_when_update_offer_is_called() {
+        // given
+        ApiCreateOfferRequest request = mock(ApiCreateOfferRequest.class);
+
+        Offer domainOffer = mock(Offer.class);
+        ApiOfferLight apiOffer = new ApiOfferLight();
+
+        when(offerService.update(
+                request.getName(),
+                request.getId(),
+                request.getDescription(),
+                request.getUserId(),
+                request.getTitle(),
+                request.getStatus()
+        )).thenReturn(domainOffer);
+
+        when(apiDomainOfferMapper.toApi(domainOffer)).thenReturn(apiOffer);
+
+        // when
+        ApiOfferLight result = offerController.updateOffer(request);
+
+        // then
+        assertNotNull(result);
+        assertEquals(apiOffer, result);
+        verify(offerService).update(
+                request.getName(),
+                request.getId(),
+                request.getDescription(),
+                request.getUserId(),
+                request.getTitle(),
+                request.getStatus()
+        );
+        verify(apiDomainOfferMapper).toApi(domainOffer);
+    }
 }
