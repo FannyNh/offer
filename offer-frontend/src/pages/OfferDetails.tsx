@@ -46,6 +46,7 @@ const OfferDetail = () => {
             </button>
 
             <h1 className="text-3xl mb-4">Détails de l’offre</h1>
+            {JSON.stringify(offer)}
             <p>Connecté en tant que : {user?.displayName || user?.email}</p>
 
             {loading ? (

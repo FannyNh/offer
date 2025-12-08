@@ -58,6 +58,12 @@ public class OfferController {
         return offerWithLastVersion.stream().map(apiDomainOfferMapper::toApi).toList();
     }
 
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public ApiOfferLight getOfferById(@PathVariable Long id) {
+        Offer offer = offerService.getById(id);
+        return apiDomainOfferMapper.toApi(offer);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteOffer(@PathVariable Long id) {
         offerService.delete(id);

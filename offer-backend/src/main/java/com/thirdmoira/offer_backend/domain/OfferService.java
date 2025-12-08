@@ -40,4 +40,8 @@ public class OfferService {
     public OfferVersion createVersion(  Long offerId, String title , Long versionNumber) {
         return offerRepository.createVersion(offerId,title);
     }
+
+    public Offer getById(Long id) {
+        return offerRepository.getById(id);
+    }
 }

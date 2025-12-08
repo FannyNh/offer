@@ -40,6 +40,14 @@ public class OfferRepository {
         }).toList();
     }
 
+    public Offer getById(Long offerId) {
+        OfferEntity offer = jpaRepository.findById(offerId).orElseThrow(
+                () -> new OfferNotFoundException("offer not found")
+        );
+        OfferVersionEntity lastVersion = getLastVersion(offer.getId());
+        return entityDomainOfferMapper.toDomainWithVersion(offer, lastVersion);
+    }
+
     public void delete(Long id) {
         jpaRepository.deleteById(id);
     }
@@ -78,9 +86,5 @@ public class OfferRepository {
         return jpaVersionRepository.findTopByOfferIdOrderByVersionNumberDesc(offerId);
     }
 
-    private OfferEntity getById(Long offerId) {
-        return jpaRepository.findById(offerId).orElseThrow(
-                () -> new OfferNotFoundException("offer not found")
-        );
-    }
+
 }
