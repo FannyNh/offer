@@ -20,7 +20,7 @@ export const createOffer = async (offer: NewOffer) => {
     const auth = getAuth();
     const token = await auth.currentUser?.getIdToken();
     const res = await fetch("http://localhost:8080/api/offers", {
-        method: "PUT",
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
