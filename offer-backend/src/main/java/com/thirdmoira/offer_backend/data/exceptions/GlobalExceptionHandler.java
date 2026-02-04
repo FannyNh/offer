@@ -34,4 +34,16 @@ public class GlobalExceptionHandler {
                         "message", ex.getMessage()
                 ));
     }
+
+    @ExceptionHandler({MeNotFoundException.class})
+    public ResponseEntity<Map<String, Object>> handleMeNotFoundException(Exception ex) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of(
+                        "timestamp", LocalDateTime.now(),
+                        "status", HttpStatus.CONFLICT.value(),
+                        "error", HttpStatus.CONFLICT.getReasonPhrase(),
+                        "message", ex.getMessage()
+                ));
+    }
 }

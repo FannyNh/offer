@@ -22,10 +22,13 @@ public class UserEntity {
 
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "email", unique=true)
+
+    @Column(name = "email", unique = true)
     private String email;
-    @Column(name = "password_hash")
-    private String password;
+
+    @Column(name = "idp_id")
+    private String idpId;
+
     @ManyToOne
     @JoinColumn(name = "group_id")
     private GroupEntity group;

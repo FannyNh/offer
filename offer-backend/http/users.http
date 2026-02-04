@@ -4,11 +4,10 @@ Content-Type: application/json
 Accept: application/json
 
 {
-     "firstName": "cjkbks",
-     "lastName": "cjkbks",
-     "email": "cjkbks",
-     "password": "cjkbks"
-
+  "firstName": "cjkbks",
+  "lastName": "cjkbks",
+  "email": "cjkbkssfdss",
+  "password": "cjkbks"
 }
 
 ### PUT request to update user
@@ -23,9 +22,12 @@ Accept: application/json
   "password": "cjkbks",
   "userId": 2,
   "groupId": 2
-
 }
 
 ### DELETE request to delete user
 DELETE http://localhost:8080/api/users/1
+
+### GET request to information user
+GET http://localhost:8080/api/users/me
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjlkMjEzMGZlZjAyNTg3ZmQ4ODYxODg2OTgyMjczNGVmNzZhMTExNjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vb2ZmZXItZ2VuZXJhdG9yLWU0YzllIiwiYXVkIjoib2ZmZXItZ2VuZXJhdG9yLWU0YzllIiwiYXV0aF90aW1lIjoxNzYxNDA1NjY2LCJ1c2VyX2lkIjoiM05yMUVpVGFyTlVicG5oYnFQYWQzdWxLa3N4MiIsInN1YiI6IjNOcjFFaVRhck5VYnBuaGJxUGFkM3VsS2tzeDIiLCJpYXQiOjE3NjE0MDU2NjYsImV4cCI6MTc2MTQwOTI2NiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ0ZXN0QGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.I4h54If1BWOboRxO7Xsbu7btevOUMZevK3jvOiXVkqg_lksDxEngPN8ml-M8JXAp2uRRmI_-7DoMU28xqaUwyNHkj6lKslgW1q68e39pnymMkBFb124OrUbstYdY3YsmI07wF60QjyiXMe7MoLM5-TxnuWCobIAfaj--R9ikxHxaoLy_fA3PYvvXvzbyICES41Bhe8PNVaR5gXWNheAH6igHImQZ7IPEAZBrVjDbvoOH-btBCo3IRiikkUC5GSbjRVfpNp1F4bx4Kom-1_KJgJU_5g2XN6V07kEmx3yfwAcX_77qZtMvUuh6MesPevaQ6BWHbi7GycEiPcl6z60b0A
 

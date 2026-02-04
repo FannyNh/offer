@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OfferVersionJpaRepository extends JpaRepository<OfferVersionEntity, Long> {
-
+    OfferVersionEntity findTopByOfferIdOrderByVersionNumberDesc(Long offerId);
 }
+
