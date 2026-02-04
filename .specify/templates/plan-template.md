@@ -31,7 +31,11 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] API changes include updated DTOs, HTTP examples, and frontend API clients.
+- [ ] Authenticated-by-default verified; public endpoints explicitly documented.
+- [ ] Data schema and JPA entity mappings updated together (init.sql aligned).
+- [ ] Backend tests added/updated for behavior changes and are passing.
+- [ ] Error handling routes through GlobalExceptionHandler with safe responses.
 
 ## Project Structure
 

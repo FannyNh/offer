@@ -95,6 +95,12 @@
 - **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
 - **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
 
+### Security & Access Control *(mandatory for authenticated features)*
+
+- **SA-001**: Define which endpoints/actions are public vs. authenticated.
+- **SA-002**: Specify authorization rules (owner-only, group-based, admin, etc.).
+- **SA-003**: List any sensitive data fields that require masking or redaction.
+
 ### Key Entities *(include if feature involves data)*
 
 - **[Entity 1]**: [What it represents, key attributes without implementation]
