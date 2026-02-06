@@ -47,10 +47,10 @@ paths:
           description: Not the offer owner
         '404':
           description: Service not found
-  /api/offers/{offerId}/edit:
+  /api/offers/{offerId}:
     get:
-      summary: Get offer details for edit mode
-      description: Returns offer details (versions/sections/items/services) including categories.
+      summary: Get offer details (edit mode)
+      description: Returns offer details (versions/sections/items/services) including categories for edit mode only.
       parameters:
         - name: offerId
           in: path

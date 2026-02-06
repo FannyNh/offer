@@ -25,7 +25,9 @@ UI test framework is added
 **Project Type**: web (separate frontend + backend)  
 **Performance Goals**: Edit flows feel responsive; category save < 2 seconds for
 typical offers  
-**Constraints**: Categories must be hidden from preview/client-facing views  
+**Constraints**: Categories must be hidden from preview/client-facing views; use
+existing `/api/*` routes (avoid introducing `/edit` endpoints unless required by
+backend constraints)  
 **Scale/Scope**: Expected to handle typical offer sizes (dozens of services per
 offer)
 

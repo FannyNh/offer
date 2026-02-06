@@ -26,7 +26,7 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Confirm schema alignment in `offer-backend/src/main/resources/init.sql` and note no DB migration needed in `specs/001-offer-category/plan.md`
+- [ ] T001 Verify `service_categories` and `services.category_id` exist in `offer-backend/src/main/resources/init.sql` and document any required schema changes in `specs/001-offer-category/plan.md`
 - [ ] T002 Add HTTP example skeletons for new endpoints in `offer-backend/http/offers.http`
 
 ---
@@ -88,7 +88,7 @@ description: "Task list template for feature implementation"
 
 - [ ] T020 [US2] Add edit-mode offer response DTOs in `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/rest/ApiOfferEditView.java` and related nested DTOs
 - [ ] T021 [US2] Implement edit-mode offer retrieval in `offer-backend/src/main/java/com/thirdmoira/offer_backend/domain/OfferService.java`
-- [ ] T022 [US2] Add edit-mode endpoint in `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/OfferController.java`
+- [ ] T022 [US2] Extend existing offer details endpoint to include edit-mode data in `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/OfferController.java`
 - [ ] T023 [US2] Update frontend edit flow to use edit-mode endpoint in `offer-frontend/src/api/offerApi.tsx`
 - [ ] T024 [US2] Ensure preview/client views omit categories in `offer-frontend/src/pages/OfferDetails.tsx` or `offer-frontend/src/pages/Dashboard.tsx`
 

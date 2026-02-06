@@ -51,14 +51,13 @@ its category; then view the offer preview and confirm categories are hidden.
 
 ### Edge Cases
 
-- What happens when no categories are available to select?
+- What happens when no categories exist to select?
 - How does the system handle a service with no category assigned?
-- What happens when a category is disabled after services already use it?
 - How does the system handle unauthorized attempts to change a category?
 
 ## Assumptions
 
-- Categories are predefined and managed outside this feature.
+- A category “exists” if it is present in `service_categories` for the user.
 - A service can have only one category at a time.
 - Only the offer owner can change service categories.
 - Offer items can contain multiple services, each categorized independently.
@@ -67,14 +66,14 @@ its category; then view the offer preview and confirm categories are hidden.
 
 ### Functional Requirements
 
-- **FR-001**: The system MUST show the list of available categories when
-  creating or editing services within an offer item.
+- **FR-001**: The system MUST show the list of existing categories for the
+  authenticated user when creating or editing services within an offer item.
 - **FR-002**: The system MUST allow an offer owner to assign exactly one category
   to each service within an offer item.
 - **FR-003**: The system MUST allow an offer owner to change the category of a
   service on an existing offer item.
 - **FR-004**: The system MUST reject category updates that reference a category
-  not in the available list.
+  that does not exist for the authenticated user.
 - **FR-005**: The system MUST display the category label for each service in
   offer edit mode and MUST NOT show service categories in offer previews or
   client-facing offer pages.
