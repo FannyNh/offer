@@ -1,6 +1,6 @@
 <!--
 Sync Impact Report
-- Version change: template → 1.0.0
+- Version change: 1.0.0 → 1.1.0
 - Modified principles: Principle 1 placeholder → I. Contract-Driven API; Principle 2 placeholder → II. Authenticated by Default; Principle 3 placeholder → III. Data Integrity & Schema Discipline; Principle 4 placeholder → IV. Tests for Behavior Changes (NON-NEGOTIABLE); Principle 5 placeholder → V. Consistent Errors & Observability
 - Added sections: Architecture & Stack Constraints; Workflow & Quality Gates
 - Removed sections: None
@@ -57,6 +57,9 @@ Rationale: makes incidents diagnosable while keeping responses safe.
 
 - All feature work MUST start from a spec/plan and include a Constitution Check.
 - API changes MUST include updated DTOs, HTTP examples, and frontend client calls.
+- Plans/contracts MUST align with the current database schema in `init.sql` and
+  existing API route conventions under `/api/*`; deviations require explicit
+  justification in the plan.
 - Backend changes MUST pass `mvn test`; frontend changes MUST pass `npm run lint`.
 - Reviewers MUST block merges that violate any Core Principle and document any
   approved exception in the plan's Complexity Tracking section.
@@ -78,4 +81,4 @@ Compliance review expectations:
 - Every plan MUST include Constitution Check gates aligned to this document.
 - Code reviews MUST verify compliance before approval.
 
-**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): original adoption date not found in repo history | **Last Amended**: 2026-02-04
+**Version**: 1.1.0 | **Ratified**: TODO(RATIFICATION_DATE): original adoption date not found in repo history | **Last Amended**: 2026-02-06

@@ -1,0 +1,169 @@
+openapi: 3.0.3
+info:
+  title: Offer Item Service Category Management
+  version: 1.0.0
+paths:
+  /api/service-categories:
+    get:
+      summary: List available service categories
+      description: Returns categories owned by the authenticated user.
+      responses:
+        '200':
+          description: Categories returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceCategoryList'
+        '401':
+          description: Authentication required
+  /api/services/{serviceId}/category:
+    patch:
+      summary: Assign or change a service category
+      description: Updates category for a service referenced by offer items.
+      parameters:
+        - name: serviceId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceCategoryUpdate'
+      responses:
+        '200':
+          description: Category updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceCategoryView'
+        '400':
+          description: Invalid category or request
+        '401':
+          description: Authentication required
+        '403':
+          description: Not the offer owner
+        '404':
+          description: Service not found
+  /api/offers/{offerId}/edit:
+    get:
+      summary: Get offer details for edit mode
+      description: Returns offer details (versions/sections/items/services) including categories.
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Offer edit view
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferEditView'
+        '401':
+          description: Authentication required
+        '403':
+          description: Not the offer owner
+components:
+  schemas:
+    ServiceCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        name:
+          type: string
+      required: [id, userId, name]
+    ServiceCategoryList:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceCategory'
+      required: [categories]
+    ServiceCategoryUpdate:
+      type: object
+      properties:
+        categoryId:
+          type: integer
+          nullable: true
+      required: [categoryId]
+    ServiceCategoryView:
+      type: object
+      properties:
+        serviceId:
+          type: integer
+        categoryId:
+          type: integer
+          nullable: true
+        categoryName:
+          type: string
+          nullable: true
+      required: [serviceId]
+    OfferEditView:
+      type: object
+      properties:
+        offerId:
+          type: integer
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferVersionEditView'
+      required: [offerId, versions]
+    OfferVersionEditView:
+      type: object
+      properties:
+        offerVersionId:
+          type: integer
+        versionNumber:
+          type: integer
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferSectionEditView'
+      required: [offerVersionId, versionNumber, sections]
+    OfferSectionEditView:
+      type: object
+      properties:
+        sectionId:
+          type: integer
+        title:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OfferItemEditView'
+      required: [sectionId, title, items]
+    OfferItemEditView:
+      type: object
+      properties:
+        itemId:
+          type: integer
+        title:
+          type: string
+        service:
+          $ref: '#/components/schemas/ServiceEditView'
+      required: [itemId, title, service]
+    ServiceEditView:
+      type: object
+      properties:
+        serviceId:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        categoryId:
+          type: integer
+          nullable: true
+        categoryName:
+          type: string
+          nullable: true
+      required: [serviceId, title]
