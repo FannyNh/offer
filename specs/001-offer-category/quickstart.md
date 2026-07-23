@@ -24,9 +24,9 @@ npm run dev
 ## Manual Verification (Edit Mode)
 
 1. Sign in as the offer owner.
-2. Open an offer in edit mode.
+2. Open an offer in edit mode (uses `GET /api/offers/{id}` for owners).
 3. Confirm each service shows its category label or "Uncategorized".
-4. Change a service category and save.
+4. Change a service category and save (via `PATCH /api/services/{serviceId}/category`).
 5. Re-open edit mode and verify the category persists.
 6. Open the offer preview and client-facing offer page and verify categories are
    not shown.

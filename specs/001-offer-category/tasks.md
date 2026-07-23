@@ -26,8 +26,8 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Verify `service_categories` and `services.category_id` exist in `offer-backend/src/main/resources/init.sql` and document any required schema changes in `specs/001-offer-category/plan.md`
-- [ ] T002 Add HTTP example skeletons for new endpoints in `offer-backend/http/offers.http`
+- [X] T001 Verify `service_categories` and `services.category_id` exist in `offer-backend/src/main/resources/init.sql` and document any required schema changes in `specs/001-offer-category/plan.md`
+- [X] T002 Add HTTP example skeletons for new endpoints in `offer-backend/http/offers.http`
 
 ---
 
@@ -37,12 +37,12 @@ description: "Task list template for feature implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T003 Create `ServiceEntity` mapping `services` table in `offer-backend/src/main/java/com/thirdmoira/offer_backend/data/entities/ServiceEntity.java`
-- [ ] T004 Create `ServiceCategoryEntity` mapping `service_categories` table in `offer-backend/src/main/java/com/thirdmoira/offer_backend/data/entities/ServiceCategoryEntity.java`
-- [ ] T005 Create repositories in `offer-backend/src/main/java/com/thirdmoira/offer_backend/data/ServiceRepository.java` and `offer-backend/src/main/java/com/thirdmoira/offer_backend/data/ServiceCategoryRepository.java`
-- [ ] T006 Add API DTOs for categories and service category updates in `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/rest/ApiServiceCategory.java`, `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/rest/ApiServiceCategoryList.java`, `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/rest/ApiServiceCategoryUpdateRequest.java`, `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/rest/ApiServiceCategoryView.java`
-- [ ] T007 Create mappers for service/category API in `offer-backend/src/main/java/com/thirdmoira/offer_backend/data/mappers/ApiDomainServiceCategoryMapper.java`
-- [ ] T008 Add domain models for service/category in `offer-backend/src/main/java/com/thirdmoira/offer_backend/domain/models/Service.java` and `offer-backend/src/main/java/com/thirdmoira/offer_backend/domain/models/ServiceCategory.java`
+- [X] T003 Create `ServiceEntity` mapping `services` table in `offer-backend/src/main/java/com/thirdmoira/offer_backend/data/entities/ServiceEntity.java`
+- [X] T004 Create `ServiceCategoryEntity` mapping `service_categories` table in `offer-backend/src/main/java/com/thirdmoira/offer_backend/data/entities/ServiceCategoryEntity.java`
+- [X] T005 Create repositories in `offer-backend/src/main/java/com/thirdmoira/offer_backend/data/ServiceRepository.java` and `offer-backend/src/main/java/com/thirdmoira/offer_backend/data/ServiceCategoryRepository.java`
+- [X] T006 Add API DTOs for categories and service category updates in `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/rest/ApiServiceCategory.java`, `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/rest/ApiServiceCategoryList.java`, `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/rest/ApiServiceCategoryUpdateRequest.java`, `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/rest/ApiServiceCategoryView.java`
+- [X] T007 Create mappers for service/category API in `offer-backend/src/main/java/com/thirdmoira/offer_backend/data/mappers/ApiDomainServiceCategoryMapper.java`
+- [X] T008 Add domain models for service/category in `offer-backend/src/main/java/com/thirdmoira/offer_backend/domain/models/Service.java` and `offer-backend/src/main/java/com/thirdmoira/offer_backend/domain/models/ServiceCategory.java`
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -56,19 +56,19 @@ description: "Task list template for feature implementation"
 
 ### Tests for User Story 1 (REQUIRED)
 
-- [ ] T009 [P] [US1] Add service category update tests in `offer-backend/src/test/java/com/thirdmoira/offer_backend/api/ServiceCategoryControllerTest.java`
-- [ ] T010 [P] [US1] Add service-category authorization tests in `offer-backend/src/test/java/com/thirdmoira/offer_backend/domain/ServiceCategoryServiceTest.java`
+- [X] T009 [P] [US1] Add service category update tests in `offer-backend/src/test/java/com/thirdmoira/offer_backend/api/ServiceCategoryControllerTest.java`
+- [X] T010 [P] [US1] Add service-category authorization tests in `offer-backend/src/test/java/com/thirdmoira/offer_backend/domain/ServiceCategoryServiceTest.java`
 
 ### Implementation for User Story 1
 
-- [ ] T011 [US1] Implement category listing logic in `offer-backend/src/main/java/com/thirdmoira/offer_backend/domain/ServiceCategoryService.java`
-- [ ] T012 [US1] Implement service category update logic in `offer-backend/src/main/java/com/thirdmoira/offer_backend/domain/ServiceService.java`
-- [ ] T013 [US1] Add service category API routes in `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/ServiceCategoryController.java`
-- [ ] T014 [US1] Add service category update route in `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/ServiceController.java`
-- [ ] T015 [US1] Update HTTP examples for category list/update in `offer-backend/http/offers.http`
-- [ ] T016 [US1] Add frontend API client calls in `offer-frontend/src/api/offerApi.tsx` or `offer-frontend/src/api/serviceApi.tsx`
-- [ ] T017 [US1] Add frontend types for categories/services in `offer-frontend/src/types/offer.ts`
-- [ ] T018 [US1] Wire category selection UI in edit flow in `offer-frontend/src/pages/OfferDetails.tsx`
+- [X] T011 [US1] Implement category listing logic in `offer-backend/src/main/java/com/thirdmoira/offer_backend/domain/ServiceCategoryService.java`
+- [X] T012 [US1] Implement service category update logic in `offer-backend/src/main/java/com/thirdmoira/offer_backend/domain/ServiceService.java`
+- [X] T013 [US1] Add service category API routes in `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/ServiceCategoryController.java`
+- [X] T014 [US1] Add service category update route in `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/ServiceController.java`
+- [X] T015 [US1] Update HTTP examples for category list/update in `offer-backend/http/offers.http`
+- [X] T016 [US1] Add frontend API client calls in `offer-frontend/src/api/offerApi.tsx` or `offer-frontend/src/api/serviceApi.tsx`
+- [X] T017 [US1] Add frontend types for categories/services in `offer-frontend/src/types/offer.ts`
+- [X] T018 [US1] Wire category selection UI in edit flow in `offer-frontend/src/pages/OfferDetails.tsx`
 
 **Checkpoint**: User Story 1 should be fully functional and testable independently
 
@@ -82,15 +82,15 @@ description: "Task list template for feature implementation"
 
 ### Tests for User Story 2 (REQUIRED)
 
-- [ ] T019 [P] [US2] Add edit-view response tests in `offer-backend/src/test/java/com/thirdmoira/offer_backend/api/OfferControllerTest.java`
+- [X] T019 [P] [US2] Add edit-view response tests in `offer-backend/src/test/java/com/thirdmoira/offer_backend/api/OfferControllerTest.java`
 
 ### Implementation for User Story 2
 
-- [ ] T020 [US2] Add edit-mode offer response DTOs in `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/rest/ApiOfferEditView.java` and related nested DTOs
-- [ ] T021 [US2] Implement edit-mode offer retrieval in `offer-backend/src/main/java/com/thirdmoira/offer_backend/domain/OfferService.java`
-- [ ] T022 [US2] Extend existing offer details endpoint to include edit-mode data in `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/OfferController.java`
-- [ ] T023 [US2] Update frontend edit flow to use edit-mode endpoint in `offer-frontend/src/api/offerApi.tsx`
-- [ ] T024 [US2] Ensure preview/client views omit categories in `offer-frontend/src/pages/OfferDetails.tsx` or `offer-frontend/src/pages/Dashboard.tsx`
+- [X] T020 [US2] Add edit-mode offer response DTOs in `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/rest/ApiOfferEditView.java` and related nested DTOs
+- [X] T021 [US2] Implement edit-mode offer retrieval in `offer-backend/src/main/java/com/thirdmoira/offer_backend/domain/OfferService.java`
+- [X] T022 [US2] Extend existing offer details endpoint to include edit-mode data in `offer-backend/src/main/java/com/thirdmoira/offer_backend/api/OfferController.java`
+- [X] T023 [US2] Update frontend edit flow to use edit-mode endpoint in `offer-frontend/src/api/offerApi.tsx`
+- [X] T024 [US2] Ensure preview/client views omit categories in `offer-frontend/src/pages/OfferDetails.tsx` or `offer-frontend/src/pages/Dashboard.tsx`
 
 **Checkpoint**: User Story 2 should be independently functional
 
@@ -100,8 +100,8 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T025 [P] Update quickstart verification steps in `specs/001-offer-category/quickstart.md`
-- [ ] T026 [P] Run backend tests and capture results in PR notes from `offer-backend`
+- [X] T025 [P] Update quickstart verification steps in `specs/001-offer-category/quickstart.md`
+- [X] T026 [P] Run backend tests and capture results in PR notes from `offer-backend`
 - [ ] T027 [P] Run frontend lint and capture results in PR notes from `offer-frontend`
 
 ---

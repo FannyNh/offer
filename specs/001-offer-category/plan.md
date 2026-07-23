@@ -12,6 +12,8 @@ offer items (services.category_id), visible only in edit mode. Implement with
 service-category associations aligned to `service_categories` and `services`,
 edit-only response fields, and validated updates that enforce ownership and
 category availability.
+Schema check: `init.sql` already includes `service_categories` and
+`services.category_id`; no migration required for this feature.
 
 ## Technical Context
 
