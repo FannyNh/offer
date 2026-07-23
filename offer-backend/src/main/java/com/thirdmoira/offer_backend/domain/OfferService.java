@@ -2,6 +2,8 @@ package com.thirdmoira.offer_backend.domain;
 
 import com.thirdmoira.offer_backend.data.OfferRepository;
 import com.thirdmoira.offer_backend.data.entities.OfferVersionEntity;
+import com.thirdmoira.offer_backend.data.exceptions.ForbiddenActionException;
+import com.thirdmoira.offer_backend.domain.models.OfferEditView;
 import com.thirdmoira.offer_backend.domain.models.Offer;
 import com.thirdmoira.offer_backend.domain.models.OfferVersion;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,8 @@ import java.util.List;
 public class OfferService {
     @Autowired
     private OfferRepository offerRepository;
+    @Autowired
+    private ServiceService serviceService;
 
     @Transactional
     public Offer create(String name, Long id, String description, Long userId, String title, String status) {
@@ -43,5 +47,17 @@ public class OfferService {
 
     public Offer getById(Long id) {
         return offerRepository.getById(id);
+    }
+
+    public OfferEditView getEditView(Long offerId, Long userId) {
+        Offer offer = offerRepository.getById(offerId);
+        if (offer.userId() == null || !offer.userId().equals(userId)) {
+            throw new ForbiddenActionException("Not the offer owner");
+        }
+
+        OfferEditView view = new OfferEditView();
+        view.setOffer(offer);
+        view.setServices(serviceService.getServicesForOffer(offerId));
+        return view;
     }
 }

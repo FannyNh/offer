@@ -46,4 +46,40 @@ public class GlobalExceptionHandler {
                         "message", ex.getMessage()
                 ));
     }
+
+    @ExceptionHandler({UnauthorizedException.class})
+    public ResponseEntity<Map<String, Object>> handleUnauthorizedException(Exception ex) {
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of(
+                        "timestamp", LocalDateTime.now(),
+                        "status", HttpStatus.UNAUTHORIZED.value(),
+                        "error", HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+                        "message", ex.getMessage()
+                ));
+    }
+
+    @ExceptionHandler({ForbiddenActionException.class})
+    public ResponseEntity<Map<String, Object>> handleForbiddenException(Exception ex) {
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(Map.of(
+                        "timestamp", LocalDateTime.now(),
+                        "status", HttpStatus.FORBIDDEN.value(),
+                        "error", HttpStatus.FORBIDDEN.getReasonPhrase(),
+                        "message", ex.getMessage()
+                ));
+    }
+
+    @ExceptionHandler({ServiceNotFoundException.class, ServiceCategoryNotFoundException.class})
+    public ResponseEntity<Map<String, Object>> handleServiceNotFoundException(Exception ex) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of(
+                        "timestamp", LocalDateTime.now(),
+                        "status", HttpStatus.NOT_FOUND.value(),
+                        "error", HttpStatus.NOT_FOUND.getReasonPhrase(),
+                        "message", ex.getMessage()
+                ));
+    }
 }

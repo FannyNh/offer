@@ -14,3 +14,15 @@ GET http://localhost:8080/api/offers
 
 ### DELETE request to delete an offer by id
 DELETE  http://localhost:8080/api/offers/1
+
+### GET request to list service categories
+GET http://localhost:8080/api/service-categories
+
+### PATCH request to update a service category
+PATCH http://localhost:8080/api/services/1/category
+Content-Type: application/json
+Accept: application/json
+
+{
+  "categoryId": 1
+}
