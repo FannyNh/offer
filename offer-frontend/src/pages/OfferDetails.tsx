@@ -2,20 +2,8 @@ import {useAuth} from "@/hooks/useAuth";
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getOfferById} from "@/api/offerApi";
-
-interface OfferVersion {
-    name: string | null;
-    title: string | null;
-    description: string | null;
-    versionNumber: number;
-}
-
-interface Offer {
-    id: number;
-    name: string;
-    userId: number;
-    version: OfferVersion;
-}
+import {getServiceCategories, updateServiceCategory} from "@/api/serviceApi";
+import {OfferEditView, ServiceCategory, ServiceEditView} from "@/types/offer";
 
 
 const OfferDetail = () => {
@@ -23,8 +11,9 @@ const OfferDetail = () => {
     const {idOffer} = useParams();
     const navigate = useNavigate();
 
-    const [offer, setOffer] = useState<Offer | null>(null);
+    const [offer, setOffer] = useState<OfferEditView | null>(null);
     const [loading, setLoading] = useState(true);
+    const [categories, setCategories] = useState<ServiceCategory[]>([]);
 
     useEffect(() => {
         const fetchOffer = async () => {
@@ -33,6 +22,12 @@ const OfferDetail = () => {
 
                 const data = await getOfferById(Number(idOffer));
                 setOffer(data);
+                try {
+                    const categoryData = await getServiceCategories();
+                    setCategories(categoryData);
+                } catch (categoryErr) {
+                    console.error("Erreur lors du chargement des catégories :", categoryErr);
+                }
             } catch (err) {
                 console.error("Erreur lors du chargement de l'offre :", err);
             } finally {
@@ -57,11 +52,38 @@ const OfferDetail = () => {
                 obj[keys[keys.length - 1]] = value;
             } else {
                 // @ts-ignore
-                updated[field as keyof Offer] = value as any;
+                updated[field as keyof OfferEditView] = value as any;
             }
 
             return updated;
         });
+    };
+
+    const handleCategoryChange = async (service: ServiceEditView, categoryId: number | null) => {
+        if (!offer) return;
+        try {
+            await updateServiceCategory(service.serviceId, categoryId);
+            const categoryName = categoryId
+                ? categories.find(cat => cat.id === categoryId)?.name || null
+                : null;
+            setOffer(prev => {
+                if (!prev) return prev;
+                const updatedServices = (prev.services || []).map(item => {
+                    if (item.serviceId !== service.serviceId) return item;
+                    return {
+                        ...item,
+                        categoryId,
+                        categoryName,
+                    };
+                });
+                return {
+                    ...prev,
+                    services: updatedServices,
+                };
+            });
+        } catch (err) {
+            console.error("Erreur lors de la mise à jour de la catégorie :", err);
+        }
     };
     return (
         <div className="min-h-screen w-full p-6 bg-purple-50 dark:bg-purple-950">
@@ -104,7 +126,53 @@ const OfferDetail = () => {
                             <p className="text-orange-600 font-semibold">Aucune offre trouvée.</p>
                         ) : (
                             <>
-                                editor
+                                <h3 className="font-bold text-purple-700 dark:text-purple-200 mb-3">
+                                    Services
+                                </h3>
+                                {(offer?.services && offer.services.length > 0) ? (
+                                    <div className="space-y-3">
+                                        {offer.services.map(service => (
+                                            <div key={service.serviceId}
+                                                 className="p-3 border rounded-lg border-purple-200 dark:border-purple-700">
+                                                <div className="font-semibold text-purple-800 dark:text-purple-100">
+                                                    {service.title}
+                                                </div>
+                                                {service.description && (
+                                                    <div className="text-sm text-purple-700 dark:text-purple-300">
+                                                        {service.description}
+                                                    </div>
+                                                )}
+                                                <div className="mt-2">
+                                                    <label className="text-xs font-semibold text-purple-700 dark:text-purple-200">
+                                                        Catégorie
+                                                    </label>
+                                                    <select
+                                                        value={service.categoryId ?? ""}
+                                                        onChange={(e) => {
+                                                            const value = e.target.value;
+                                                            handleCategoryChange(
+                                                                service,
+                                                                value === "" ? null : Number(value)
+                                                            );
+                                                        }}
+                                                        className="text-sm text-purple-700 dark:text-purple-200 bg-purple-100 dark:bg-purple-800 px-2 py-1 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 w-full"
+                                                    >
+                                                        <option value="">Uncategorized</option>
+                                                        {categories.map(category => (
+                                                            <option key={category.id} value={category.id}>
+                                                                {category.name}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p className="text-purple-700 dark:text-purple-300 text-sm">
+                                        Aucun service disponible.
+                                    </p>
+                                )}
                             </>
                         )}
                     </div>
