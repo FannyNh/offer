@@ -1,2 +1,23 @@
 /node_modules/
 /.codex/
+/.idea/
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.vscode/
+
+# Java
+/offer-backend/target/
+*.class
+*.jar
+*.iml
+.gradle/
+build/
+
+# Node/TypeScript
+/offer-frontend/node_modules/
+/offer-frontend/dist/
+/offer-frontend/build/
+*.log
+.env*
