@@ -11,6 +11,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,5 +36,16 @@ class ServiceCategoryServiceTest {
 
         assertEquals(1, result.size());
         assertEquals("Consulting", result.get(0).getName());
+        verify(serviceCategoryRepository).getByUserId(9L);
+    }
+
+    @Test
+    void should_return_empty_categories_when_repository_has_no_data() {
+        when(serviceCategoryRepository.getByUserId(11L)).thenReturn(List.of());
+
+        List<ServiceCategory> result = serviceCategoryService.getCategoriesForUser(11L);
+
+        assertTrue(result.isEmpty());
+        verify(serviceCategoryRepository).getByUserId(11L);
     }
 }

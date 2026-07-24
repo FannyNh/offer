@@ -2,6 +2,7 @@ package com.thirdmoira.offer_backend.api;
 
 import com.thirdmoira.offer_backend.api.rest.ApiServiceCategory;
 import com.thirdmoira.offer_backend.api.rest.ApiServiceCategoryList;
+import com.thirdmoira.offer_backend.data.exceptions.UnauthorizedException;
 import com.thirdmoira.offer_backend.data.mappers.ApiDomainServiceCategoryMapper;
 import com.thirdmoira.offer_backend.domain.ServiceCategoryService;
 import com.thirdmoira.offer_backend.domain.UserService;
@@ -65,6 +66,57 @@ class ServiceCategoryControllerTest {
         assertNotNull(result);
         assertEquals(1, result.getCategories().size());
         assertEquals("Design", result.getCategories().get(0).getName());
+    }
+
+    @Test
+    void should_return_empty_list_when_user_has_no_categories() {
+        // given
+        SecurityContextHolder.getContext().setAuthentication(
+                new TestingAuthenticationToken("uid-456", null, "ROLE_USER")
+        );
+
+        User user = new User();
+        user.setUserId(42L);
+        when(userService.getUserByUid("uid-456")).thenReturn(user);
+        when(serviceCategoryService.getCategoriesForUser(42L)).thenReturn(List.of());
+
+        // when
+        ApiServiceCategoryList result = controller.getServiceCategories();
+
+        // then
+        assertNotNull(result);
+        assertNotNull(result.getCategories());
+        assertTrue(result.getCategories().isEmpty());
+        verify(apiDomainServiceCategoryMapper, never()).toApi(any());
+    }
+
+    @Test
+    void should_throw_unauthorized_when_authentication_is_missing() {
+        // given
+        SecurityContextHolder.clearContext();
+
+        // when / then
+        UnauthorizedException ex = assertThrows(
+                UnauthorizedException.class,
+                () -> controller.getServiceCategories()
+        );
+        assertEquals("Authentication required", ex.getMessage());
+    }
+
+    @Test
+    void should_throw_unauthorized_when_principal_is_not_uid_string() {
+        // given
+        SecurityContextHolder.getContext().setAuthentication(
+                new TestingAuthenticationToken(123L, null, "ROLE_USER")
+        );
+
+        // when / then
+        UnauthorizedException ex = assertThrows(
+                UnauthorizedException.class,
+                () -> controller.getServiceCategories()
+        );
+        assertEquals("Authentication required", ex.getMessage());
+        verifyNoInteractions(userService);
     }
 
     @AfterEach
