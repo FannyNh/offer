@@ -31,4 +31,8 @@ public class ServiceRepository {
                 .map(entityDomainServiceMapper::toDomain)
                 .toList();
     }
+
+    public void delete(ServiceEntity entity) {
+        jpaRepository.delete(entity);
+    }
 }

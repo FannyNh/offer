@@ -1,7 +1,9 @@
 package com.thirdmoira.offer_backend.api;
 
+import com.thirdmoira.offer_backend.api.rest.ApiCreateOrUpdateServiceRequest;
 import com.thirdmoira.offer_backend.api.rest.ApiServiceCategoryUpdateRequest;
 import com.thirdmoira.offer_backend.api.rest.ApiServiceCategoryView;
+import com.thirdmoira.offer_backend.api.rest.ApiServiceView;
 import com.thirdmoira.offer_backend.data.exceptions.UnauthorizedException;
 import com.thirdmoira.offer_backend.domain.ServiceService;
 import com.thirdmoira.offer_backend.domain.UserService;
@@ -21,11 +23,57 @@ public class ServiceController {
     @Autowired
     private UserService userService;
 
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public ApiServiceView createService(@RequestBody ApiCreateOrUpdateServiceRequest request) {
+        Long userId = getAuthenticatedUserId();
+        Service service = serviceService.create(
+                userId,
+                request.getCategoryId(),
+                request.getTitle(),
+                request.getDescription()
+        );
+        return toApiServiceView(service);
+    }
+
+    @PutMapping(value = "/{serviceId}", consumes = "application/json", produces = "application/json")
+    public ApiServiceView updateService(@PathVariable Long serviceId,
+                                        @RequestBody ApiCreateOrUpdateServiceRequest request) {
+        Long userId = getAuthenticatedUserId();
+        Service service = serviceService.update(
+                userId,
+                serviceId,
+                request.getCategoryId(),
+                request.getTitle(),
+                request.getDescription()
+        );
+        return toApiServiceView(service);
+    }
+
+    @DeleteMapping(value = "/{serviceId}")
+    public void deleteService(@PathVariable Long serviceId) {
+        Long userId = getAuthenticatedUserId();
+        serviceService.delete(userId, serviceId);
+    }
+
     @PatchMapping(value = "/{serviceId}/category", consumes = "application/json", produces = "application/json")
     public ApiServiceCategoryView updateServiceCategory(@PathVariable Long serviceId,
                                                         @RequestBody ApiServiceCategoryUpdateRequest request) {
         Long userId = getAuthenticatedUserId();
         Service service = serviceService.updateCategory(userId, serviceId, request.getCategoryId());
+        return toApiServiceCategoryView(service);
+    }
+
+    private ApiServiceView toApiServiceView(Service service) {
+        ApiServiceView response = new ApiServiceView();
+        response.setServiceId(service.getId());
+        response.setCategoryId(service.getCategoryId());
+        response.setCategoryName(service.getCategoryName());
+        response.setTitle(service.getTitle());
+        response.setDescription(service.getDescription());
+        return response;
+    }
+
+    private ApiServiceCategoryView toApiServiceCategoryView(Service service) {
         ApiServiceCategoryView response = new ApiServiceCategoryView();
         response.setServiceId(service.getId());
         response.setCategoryId(service.getCategoryId());
