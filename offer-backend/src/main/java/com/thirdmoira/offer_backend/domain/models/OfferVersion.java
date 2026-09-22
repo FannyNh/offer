@@ -7,7 +7,6 @@ public class OfferVersion {
     Long id;
     Long offerId;
     String title;
+    String name;
     Long versionNumber;
-
-
 }

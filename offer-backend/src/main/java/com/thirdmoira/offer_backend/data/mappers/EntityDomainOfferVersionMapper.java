@@ -11,7 +11,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface EntityDomainOfferVersionMapper {
     @Mapping(target = "offer", expression = "java(mapOffer(offerId))")
-    OfferVersionEntity toEntity(Long id, Long offerId, String title, Long versionNumber);
+    @Mapping(source = "description", target = "offerDescription")
+    OfferVersionEntity toEntity(Long id, Long offerId, String title, Long versionNumber, String description);
 
     @Mapping(source = "offer.id", target = "offerId")
     OfferVersion toDomain(OfferVersionEntity save);

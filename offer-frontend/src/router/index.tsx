@@ -4,12 +4,14 @@ import Register from "@/pages/Register";
 import Dashboard from "@/pages/Dashboard";
 import ErrorPage from "@/pages/ErrorPage";
 import PrivateRoute from "@/components/PrivateRoute";
+import CreateOffer from "@/pages/CreateOffer";
+import OfferDetails from "@/pages/OfferDetails";
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <Login />,
-        errorElement: <ErrorPage />, // 🔹 gestion d'erreur ici
+        errorElement: <ErrorPage />,
     },
     {
         path: "/login",
@@ -31,7 +33,25 @@ export const router = createBrowserRouter([
         errorElement: <ErrorPage />,
     },
     {
+        path: "/create-offer",
+        element: (
+            <PrivateRoute>
+                <CreateOffer />
+            </PrivateRoute>
+        ),
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: "/offers/:idOffer",
+        element: (
+            <PrivateRoute>
+                <OfferDetails />
+            </PrivateRoute>
+        ),
+        errorElement: <ErrorPage />,
+    },
+    {
         path: "*",
-        element: <ErrorPage />, // 🔹 toutes les routes inconnues tombent ici
+        element: <ErrorPage />,
     },
 ]);

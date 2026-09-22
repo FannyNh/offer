@@ -4,12 +4,6 @@ export interface User {
     firstName?: string;
     lastName?: string;
 }
-
-export interface AuthResponse {
-    token: string;
-    user: User;
-}
-
 export interface LoginPayload {
     email: string;
     password: string;
@@ -19,3 +13,11 @@ export interface RegisterPayload extends LoginPayload {
     firstName: string;
     lastName: string;
 }
+export interface ApiUser {
+    userId: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    groupId: number;
+}
+

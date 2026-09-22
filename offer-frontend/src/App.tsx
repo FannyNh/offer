@@ -1,12 +1,18 @@
-import { RouterProvider } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
-import { router } from "./router";
+import {RouterProvider} from "react-router-dom";
+import {AuthProvider} from "./context/AuthContext";
+import {router} from "./router";
+import {Layout} from "./components/Layout";
+import {ThemeProvider} from "@/context/ThemeContext";
 
 function App() {
     return (
-        <AuthProvider>
-            <RouterProvider router={router} />
-        </AuthProvider>
+        <ThemeProvider>
+            <AuthProvider>
+                <Layout>
+                    <RouterProvider router={router}/>
+                </Layout>
+            </AuthProvider>
+        </ThemeProvider>
     );
 }
 

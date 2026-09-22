@@ -9,9 +9,10 @@ import com.thirdmoira.offer_backend.domain.UserService;
 import com.thirdmoira.offer_backend.domain.models.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // Annotation pour dire que cette classe est un contrôleur REST
@@ -28,17 +29,21 @@ public class UserController {
 
     @PutMapping(consumes = "application/json", produces = "application/json")
     public ApiUser createOrUpdateUser(@RequestBody ApiCreateOrUpdateUserRequest request) {
-        log.info("request creat user :" + request);
+        log.info("request creat user :{}", request);
         // Retourne le user creer
         User newUser = userService.createOrUpdate(request.getFirstName(),
                 request.getLastName(),
                 request.getEmail(),
-                request.getPassword(),
                 request.getGroupId(),
-                request.getUserId());
+                request.getUserId(),
+                request.getIdpId()
+        );
 
         return apiDomainUserMapper.toApi(newUser);
     }
+
+    // GET me get base information user
+
 
     @GetMapping(produces = "application/json")
     public List<ApiUser> getUsers() {
@@ -55,6 +60,16 @@ public class UserController {
         log.info("delete test");
         userService.delete(id);
 
+    }
+
+    @GetMapping("/me")
+    public ApiUser getMe() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return null;
+        }
+        String principal = (String) authentication.getPrincipal();
+        return apiDomainUserMapper.toApi(userService.getUserByUid(principal));
     }
 
 

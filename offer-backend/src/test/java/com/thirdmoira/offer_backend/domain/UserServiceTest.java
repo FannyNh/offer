@@ -1,6 +1,7 @@
 package com.thirdmoira.offer_backend.domain;
 
 import com.thirdmoira.offer_backend.data.UserRepository;
+import com.thirdmoira.offer_backend.data.UserRepositoryTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,9 +21,9 @@ class UserServiceTest {
     void shouldCallRepositoryWhenCreateOrUpdate() {
         //given
         //when
-        userService.createOrUpdate("sesres", "boubou", "bou@gmail.com", "1234test", null, null);
+        userService.createOrUpdate("sesres", "boubou", "bou@gmail.com", null, null, null);
         //then
-        verify(userRepository).createOrUpdate("sesres", "boubou", "bou@gmail.com", "1234test", null, null);
+        verify(userRepository).createOrUpdate("sesres", "boubou", "bou@gmail.com", null, null, null);
     }
 
     @Test
@@ -32,5 +33,11 @@ class UserServiceTest {
         userService.get();
         //then
         verify(userRepository).get();
+    }
+
+    @Test
+    void shouldCallRepositoryWhenGetUserByUid() {
+        userService.getUserByUid("sesres");
+        verify(userRepository).getUserByUid("sesres");
     }
 }

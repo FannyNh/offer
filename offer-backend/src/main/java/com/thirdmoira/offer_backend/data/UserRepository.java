@@ -1,5 +1,6 @@
 package com.thirdmoira.offer_backend.data;
 
+import com.thirdmoira.offer_backend.api.rest.ApiUser;
 import com.thirdmoira.offer_backend.data.entities.UserEntity;
 import com.thirdmoira.offer_backend.data.exceptions.EmailAlreadyExistException;
 import com.thirdmoira.offer_backend.data.exceptions.UserNotExistException;
@@ -18,9 +19,9 @@ public class UserRepository {
     private  UserJpaRepository jpaRepository;
     @Autowired
     private EntityDomainUserMapper entityDomainUserMapper;
-    public User createOrUpdate(String firstName, String lastName, String email, String password, Long groupId, Long userId) {
+    public User createOrUpdate(String firstName, String lastName, String email, Long groupId, Long userId, String idpId) {
 
-        UserEntity user = entityDomainUserMapper.toEntity(firstName, lastName, email, password, groupId,userId);
+        UserEntity user = entityDomainUserMapper.toEntity(firstName, lastName, email, groupId,userId,idpId);
         if(user.getUserId() == null) {
             checkEmailExist(user);
         }else{
@@ -55,4 +56,11 @@ public class UserRepository {
     public void delete(long id) {
      jpaRepository.deleteById(id);
     }
+
+    public User getUserByUid(String uid) {
+        return jpaRepository.findOneByIdpId(uid)
+                .map(entityDomainUserMapper::toDomain)
+                .orElseThrow(() -> new UserNotExistException("User with uid: " + uid + " does not exist"));
+    }
+
 }

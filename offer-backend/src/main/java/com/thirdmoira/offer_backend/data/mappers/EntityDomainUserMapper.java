@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface EntityDomainUserMapper {
     User toDomain(UserEntity save);
-    UserEntity toEntity(String firstName, String lastName, String email, String password, Long groupId, Long userId);
+    UserEntity toEntity(String firstName, String lastName, String email, Long groupId, Long userId, String idpId);
 }
 
 
